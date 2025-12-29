@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <sys/stat.h>
+
+int main()
+{
+    struct stat fileStat;
+
+    // Get file information
+    if (stat("sample.txt", &fileStat) < 0)
+    {
+        printf("Error: File not found\n");
+        return 1;
+    }
+
+    printf("File Permissions for sample.txt:\n");
+
+    // Owner permissions
+    printf("Owner Permissions: ");
+    printf((fileStat.st_mode & S_IRUSR) ? "Read " : "");
+    printf((fileStat.st_mode & S_IWUSR) ? "Write " : "");
+    printf((fileStat.st_mode & S_IXUSR) ? "Execute " : "");
+    printf("\n");
+
+    // Group permissions
+    printf("Group Permissions: ");
+    printf((fileStat.st_mode & S_IRGRP) ? "Read " : "");
+    printf((fileStat.st_mode & S_IWGRP) ? "Write " : "");
+    printf((fileStat.st_mode & S_IXGRP) ? "Execute " : "");
+    printf("\n");
+
+    // Others permissions
+    printf("Others Permissions: ");
+    printf((fileStat.st_mode & S_IROTH) ? "Read " : "");
+    printf((fileStat.st_mode & S_IWOTH) ? "Write " : "");
+    printf((fileStat.st_mode & S_IXOTH) ? "Execute " : "");
+    printf("\n");
+
+    return 0;
+}
