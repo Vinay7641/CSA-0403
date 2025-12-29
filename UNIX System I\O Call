@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <sys/stat.h>
+#include <dirent.h>
+
+int main()
+{
+    struct dirent *entry;
+    struct stat info;
+    DIR *dp;
+
+    dp = opendir(".");
+
+    while((entry = readdir(dp)) != NULL)
+    {
+        stat(entry->d_name, &info);
+        printf("File: %-20s Size: %ld bytes\n",
+               entry->d_name, info.st_size);
+    }
+
+    closedir(dp);
+    return 0;
+}
